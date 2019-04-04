@@ -1,0 +1,22 @@
+<% include partials/header.ejs%>
+<style>
+    body { padding-top: 50px; }
+</style>
+<h1>Add an image</h1>
+
+ <form class="form-inline" action="/new" method="post">
+  <div class="form-group">
+    <label for="name">Name: </label>
+    <input type="text" class="form-control" id="name" name="name">
+  </div>
+  <div class="form-group">
+    <label for="url">URL: </label>
+    <input type="text" class="form-control" id="url" name="url">
+  </div>
+  <div class="form-group">
+    <label for="url">Description: </label>
+    <input type="text" class="form-control" id="url" name="description">
+  </div>
+  <input type="submit" value="Submit" class="btn btn-primary">
+</form> 
+<% include partials/footer.ejs%>
