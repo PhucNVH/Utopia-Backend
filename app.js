@@ -14,7 +14,7 @@ var mongoose = require("mongoose");
 var client = require("./models/client");
 var room = require("./models/room");
 var post = require("./models/post");
-mongoose.connect("mongodb://localhost:27017/hotel", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://PhucNVH:1@nvhp46-luffx.mongodb.net/Magneton?retryWrites=true", { useNewUrlParser: true });
 //
 app.use(bodyParser.urlencoded({ extended: true }));
 //
