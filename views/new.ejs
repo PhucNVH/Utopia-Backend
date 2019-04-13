@@ -1,22 +1,28 @@
 <% include partials/header.ejs%>
 <style>
-    body { padding-top: 50px; }
+  body {
+    padding-top: 55px;
+    margin: 0% 10%;
+  }
 </style>
-<h1>Add an image</h1>
+<div class="container">
+  <h1>Create a post</h1>
 
- <form class="form-inline" action="/new" method="post">
-  <div class="form-group">
-    <label for="name">Name: </label>
-    <input type="text" class="form-control" id="name" name="name">
-  </div>
-  <div class="form-group">
-    <label for="url">URL: </label>
-    <input type="text" class="form-control" id="url" name="url">
-  </div>
-  <div class="form-group">
-    <label for="url">Description: </label>
-    <input type="text" class="form-control" id="url" name="description">
-  </div>
-  <input type="submit" value="Submit" class="btn btn-primary">
-</form> 
+  <form class="form-group" action="/new" method="post">
+    <div class="form-group">
+      <label for="name">Name: </label>
+      <input type="text" class="form-control" id="name" name="name">
+    </div>
+    <div class="form-group">
+      <label for="url">URL: </label>
+      <input type="text" class="form-control" id="url" name="url">
+    </div>
+    <div class="form-group">
+      <label for="url">Description: </label>
+      <textarea type="text" class="form-control" id="url" name="description"></textarea>
+    </div>
+    <button class="btn btn-danger btn-sm">Delete</button>
+    <input type="submit" value="Submit" class="btn btn-primary btn-sm">
+  </form>
+</div>
 <% include partials/footer.ejs%>

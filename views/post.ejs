@@ -1,0 +1,91 @@
+<% include partials/header.ejs%>
+<style>
+    body {
+        padding-top: 6%;
+    }
+
+    .disabled {
+        pointer-events: none;
+        opacity: 0.4;
+        position: relative;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Magneton</h3>
+        </div>
+
+        <div class="col-md-9">
+            <div class="border bg-light" style="margin-bottom: 3%;">
+                <div style="padding: 0% 5%;">
+                    <h1><%=post.Title%></h1>
+                    <div>
+                        <span><%=post.Created.toDateString()%></span> by
+                        <strong><%=post.Author%></strong>
+                    </div>
+                </div>
+
+                <div class="text-center" style="margin: 3%;">
+                    <img src="<%=post.Image%>" class="img-thumbnail">
+                </div>
+                <div class="well">
+                    <p style="padding: 2% 5%;">
+                        <%=post.Body%>
+                    </p>
+                </div>
+                <div style="margin: 2% 5%;">
+                    <button class="btn btn-primary btn-sm">Update</button>
+                </div>
+            </div>
+            <div class="border container" style="margin-bottom: 2%;" id="commentSection">
+                <%post.Comments.forEach(function(comment){ %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong><%=comment.Author.username%></strong>
+                        <span style="float: right;"><%=comment.Created.toDateString()%>
+                            <%=comment.Created.getHours()%>:<%=comment.Created.getMinutes()%></span>
+                        <p><%=comment.Body%></p>
+                    </div>
+                </div>
+                <%});%>
+            </div>
+            <div>
+                <%if (currentUser) { %>
+                <form class="comment form" action="/explore/<%=post._id%>" method="POST">
+
+                    <textarea class="form-control" type="text" name="Body" placeholder="What do you think?"
+                        name="Comment" style="margin-bottom: 2%;"></textarea>
+                    <button class="btn btn-primary">Send</button>
+                </form>
+                <% } else { %>
+                <div>
+                    <div class="text-center" style="; opacity: 1; z-index: 1;">
+                        <a href="/login">Login</a> or
+                        <a href="/signup">Signup</a>
+                        to
+                        comment
+                    </div>
+                    <form class="comment form disabled" action="/explore/<%=post._id%>" method="POST">
+
+                        <textarea class="form-control" type="text" name="Body" placeholder="What do you think?"
+                            name="Comment" style="margin-bottom: 2%;"></textarea>
+                        <button class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var i = 0;
+    for (i = 0; i < $("#commentSection")[0].children.length; i++) {
+        if (i % 2 == 0) { $(".col-md-12").eq(i).css("background-color", "LightCyan"); }
+        else { }
+        i++;
+    }
+
+</script>
+<% include partials/footer.ejs%>

@@ -1,0 +1,17 @@
+<% include partials/header.ejs%>
+
+<div class="row" style="display: flex; flex-wrap: wrap;">
+    <% posts.forEach(function(post){ %>
+    <div class="col-md-3 col-sm-6 text-center">
+        <img src="<%=post.Image%>" class="img-thumbnail" height="200">
+        <div class="caption">
+        </div>
+        <p>
+            <a href="/explore/<%=post._id%>" class="btn btn-primary">Show Info</a>
+        </p>
+    </div>
+    <% }) %>
+
+</div>
+
+<% include partials/footer.ejs%>
