@@ -1,6 +1,144 @@
 <% include partials/header.ejs%>
 <link rel="stylesheet" type="text/css" href="/style/book.css">
-<div class="container">
 
+<div class="mg">
+    <h2 class="text-center">Find your room</h2>
+    <form class="row" action="/book" method="POST">
+        <div class="table col-md-4">
+            <!-- <tbody>
+                <tr>
+                    <td name="room">Room:</td>
+                    <td>Room:</td>
+                </tr>
+                <tr>
+                    <td name="number">Number:</td>
+                    <td>Number:</td>
+                </tr>
+                <tr>
+                    <td name="Price">Price:</td>
+                    <td>Price:</td>
+                </tr>
+            </tbody> -->
+            <div class="input-group">
+                <label for="Room">Room</label>
+                <input type="text" class="form-control" name="Room" value="PRO" readonly>
+            </div>
+            <div class="input-group">
+                <label for="Number">Number</label>
+                <input type="text" class="form-control" name="Number" value="402" readonly>
+            </div>
+            <div class="input-group">
+                <label for="Price">Price</label>
+                <input type="text" class="form-control" name="Price" value="300" readonly>
+            </div>
+        </div>
+        <div class="col-md-8">
+
+            <div class="input-group">
+                <label for="FirstName">First Name</label>
+                <input type="text" class="form-control" name="FirstName" id="FirstName" required>
+            </div>
+            <div class="input-group">
+                <label for="LastName">Last Name</label>
+                <input type="text" class="form-control" name="LastName" id="LastName" required>
+            </div>
+            <div class="input-group">
+                <label for="DateOfBirth">Date Of Birth</label>
+                <input type="date" class="form-control" name="DateOfBirth" id="DateOfBirth" required>
+            </div>
+            <div class="input-group">
+                <label for="ID">ID</label>
+                <input type="text" class="form-control" name="ID" id="ID" required>
+            </div>
+
+            <div class="input-group" id="phone">
+                <label for="PhoneNumber">Phone Number</label>
+                <input type="text" class="form-control" id="PhoneNumber" required>
+                <div class="input-group-append">
+                    <input type="button" class="btn btn-outline-secondary bt" value="Verify" onclick="mf()">
+                </div>
+            </div>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Note!</strong> You must verify your phone number before booking
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="recaptcha-container"></div>
+            <div class="input-group" id="verify">
+                <label for="verificationcode">Verification Code</label>
+                <input type="text" class="form-control" id="verificationcode" placeholder="6 digits code" required>
+                <div class="input-group-append">
+                    <input type="button" class="btn btn-outline-secondary bt" value="Submit" onclick="submitCode()">
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success" id="submitbtn" disabled>OK</button>
+    </form>
 </div>
-<% include partials/footer.ejs%>
+<div>
+    <%console.log(currentUser.phone)%>
+    <%=currentUser.phone%>
+</div>
+</body>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+<script type="text/javascript">
+    // Initialize Firebase
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDnWWqM8SQBTfvFGRingob9Nct8ezMgxMo",
+        authDomain: "magneton-hotel.firebaseapp.com",
+        databaseURL: "https://magneton-hotel.firebaseio.com",
+        projectId: "magneton-hotel",
+        storageBucket: "magneton-hotel.appspot.com",
+        messagingSenderId: "1006238576424"
+    };
+
+    firebase.initializeApp(config);
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#verify").hide();
+    });
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+        'size': 'invisible',
+    });
+    var getPhoneNum = function () {
+        var phonenum = document.getElementById("PhoneNumber").value;
+        phonenum = "+84" + phonenum;
+        return phonenum;
+    }
+    function mf() {
+        firebase.auth().signInWithPhoneNumber(getPhoneNum(), window.recaptchaVerifier)
+            .then(function (confirmationResult) {
+                window.confirmationResult = confirmationResult;
+                console.log(confirmationResult);
+                $("#verify").show(500, "swing");
+            }).catch(function (error) {
+                // Error; SMS not sent
+                console.log(error);
+                $("#PhoneNumber")[0].value = error.message;
+            });
+    }
+    var submitCode = function () {
+        window.confirmationResult.confirm(document.getElementById("verificationcode").value)
+            .then(function (result) {
+                document.getElementById("submitbtn").disabled = false;
+                console.log(result);
+                $("#verify").hide(500, "swing");
+                $('#freeform_first_name').removeAttr('required');
+                $("#PhoneNumber")[0].disabled = "true";
+            }).catch(function (error) {
+                console.log(error);
+                $("#verificationcode")[0].value = error.message;
+            });
+    };
+</script>
+<script>
+</script>
+
+</html>

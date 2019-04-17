@@ -14,11 +14,11 @@ var router = express.Router();
 
 
 //add a new post
-router.get("/new", isLoggedin, function (req, res) {
+router.get("/new", isAdmin, function (req, res) {
     res.render("new");
 });
 
-router.post("/new", function (req, res) {
+router.post("/new", isAdmin, function (req, res) {
     var newPost = { Title: req.body.name, Image: req.body.url, Body: req.body.description, Author: "PhucNVH" }
     post.create(newPost, function (err, image) {
         if (err) console.log(err);
@@ -96,6 +96,9 @@ router.get("/rooms/:name", function (req, res) {
 //Book route
 router.get("/book", isLoggedin, function (req, res) {
     res.render("book.ejs");
+});
+router.post("/book", isLoggedin, function (req, res) {
+    console.log(req.body);
 });
 router.get("/dashboard", isAdmin, function (req, res) {
     res.render("dashboard.ejs");

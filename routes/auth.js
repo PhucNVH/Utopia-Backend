@@ -37,6 +37,14 @@ router.get("/logout", function (req, res) {
     req.logout()
     res.redirect("/");
 });
+
+// verify phone
+router.get("/verify", function (req, res) {
+    res.render("verify.ejs");
+});
+router.get("/secret", function (req, res) {
+    res.render("secret.ejs");
+});
 //Authentication
 function isLoggedin(req, res, next) {
     if (req.isAuthenticated()) {

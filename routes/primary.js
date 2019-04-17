@@ -15,6 +15,9 @@ router.get("/", function (req, res) {
 router.get("/contact", function (req, res) {
     res.render("contact.ejs");
 });
+router.get("/accountkit", function (req, res) {
+    res.render("accountkit.ejs");
+});
 router.get("/404", function (req, res) {
     res.render("404.ejs");
 });
