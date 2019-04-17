@@ -18,6 +18,7 @@ var localStrategy = require("passport-local");
 var AuthenticationRoutes = require("./routes/auth");
 var PrimaryRoutes = require("./routes/primary");
 var PostRoutes = require("./routes/post");
+DashboardRoutes = require("./routes/dashboard");
 
 //mongoDB schema
 var client = require("./models/client");
@@ -62,7 +63,9 @@ app.use(function (req, res, next) {
 
 app.use(AuthenticationRoutes);
 app.use(PostRoutes);
+app.use(DashboardRoutes);
 app.use(PrimaryRoutes);
+
 
 
 
