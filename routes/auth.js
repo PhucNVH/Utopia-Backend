@@ -11,19 +11,20 @@ var passport = require("passport");
 var user = require("../models/user");
 var router = express.Router();
 // LOGIN AND SIGNUP SITE 
-router.get("/login", function (req, res) {
+router.get("/login", isNotLoggedIn, function (req, res) {
     res.render("login.ejs", { method: "login" });
 });
-router.post("/login", passport.authenticate("local", {
-    successRedirect: "/", failureRedirect: "/login"
-}), function (req, res) { });
-router.get("/signup", function (req, res) {
-
+router.post("/login", isNotLoggedIn, passport.authenticate("local", {
+    failureRedirect: "/login"
+}), function (req, res) {
+    res.redirect("/");
+}
+);
+router.get("/signup", isNotLoggedIn, function (req, res) {
     res.render("login.ejs", { method: "signup" });
-
 });
-router.post("/signup", function (req, res) {
-    var newUser = new user({ username: req.body.username })
+router.post("/signup", isNotLoggedIn, function (req, res) {
+    var newUser = new user({ username: req.body.username, FirstName: req.body.FirstName, LastName: req.body.LastName })
     user.register(newUser, req.body.password, function (err, user) {
         if (err) { console.log(err); res.render("signup"); }
         else {
@@ -34,10 +35,10 @@ router.post("/signup", function (req, res) {
     });
 });
 router.get("/logout", function (req, res) {
-    req.logout()
+    req.logout();
+    req.session.destroy();
     res.redirect("/");
 });
-
 // verify phone
 router.get("/verify", function (req, res) {
     res.render("verify.ejs");
@@ -52,6 +53,14 @@ function isLoggedin(req, res, next) {
     }
     else {
         res.redirect("/login");
+    }
+}
+function isNotLoggedIn(req, res, next) {
+    if (!req.isAuthenticated()) {
+        return next();
+    }
+    else {
+        res.redirect("/");
     }
 }
 module.exports = router;

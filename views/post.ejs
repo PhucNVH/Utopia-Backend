@@ -1,4 +1,5 @@
 <% include partials/header.ejs%>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <style>
     body {
         padding-top: 6%;
@@ -9,7 +10,26 @@
         opacity: 0.4;
         position: relative;
     }
+
+    .well ul {
+        margin: 0% 5%;
+    }
+
+    .well ol {
+        margin: 0% 5%;
+    }
+
+    .ql-editor img {
+        width: 100%;
+    }
+
+    .ql-video {
+        margin: 0 auto;
+        width: 90%;
+        height: 400px;
+    }
 </style>
+
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -17,26 +37,29 @@
         </div>
 
         <div class="col-md-9">
-            <div class="border bg-light" style="margin-bottom: 3%;">
-                <div style="padding: 0% 5%;">
-                    <h1><%=post.Title%></h1>
-                    <div>
-                        <span><%=post.Created.toDateString()%></span> by
-                        <strong><%=post.Author%></strong>
+            <div class="border bg-light " style="margin-bottom: 3%;">
+                <div class="container">
+                    <div style="padding: 0% 5%;">
+                        <h1><%=post.Title%></h1>
+                        <div>
+                            <span><%=post.Created.toDateString()%></span> by
+                            <strong><%=post.Author%></strong>
+                        </div>
+                    </div>
+
+                    <div class="text-center" style="margin: 3%;">
+                        <img src="<%=post.Image%>" class="img-thumbnail">
+                    </div>
+                    <div class="well ql-editor">
+                        <p style="padding: 2% 5%;">
+                            <%-post.Body%>
+                        </p>
+                    </div>
+                    <div style="margin: 2% 5%;">
+                        <button class="btn btn-primary btn-sm">Update</button>
                     </div>
                 </div>
 
-                <div class="text-center" style="margin: 3%;">
-                    <img src="<%=post.Image%>" class="img-thumbnail">
-                </div>
-                <div class="well">
-                    <p style="padding: 2% 5%;">
-                        <%=post.Body%>
-                    </p>
-                </div>
-                <div style="margin: 2% 5%;">
-                    <button class="btn btn-primary btn-sm">Update</button>
-                </div>
             </div>
             <div class="border container" style="margin-bottom: 2%;" id="commentSection">
                 <%post.Comments.forEach(function(comment){ %>
@@ -45,7 +68,7 @@
                         <strong><%=comment.Author.username%></strong>
                         <span style="float: right;"><%=comment.Created.toDateString()%>
                             <%=comment.Created.getHours()%>:<%=comment.Created.getMinutes()%></span>
-                        <p><%=comment.Body%></p>
+                        <p style="word-wrap: break-word;"><%=comment.Body%></p>
                     </div>
                 </div>
                 <%});%>
@@ -60,7 +83,7 @@
                 </form>
                 <% } else { %>
                 <div>
-                    <div class="text-center" style="opacity: 1; z-index: 1;">
+                    <div class="text-center" style="opacity: 1; z-: 1;">
                         <a href="/login">Login</a> or
                         <a href="/signup">Signup</a>
                         to

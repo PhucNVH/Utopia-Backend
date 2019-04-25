@@ -26,15 +26,18 @@ var room = require("./models/room");
 var post = require("./models/post");
 var user = require("./models/user");
 var Comment = require("./models/comment");
-var seedDB = require("./seed");
-var RoomDB = require("./room");
-var seedRoom = require("./seedRoom");
+var seedDB = require("./seedDB/seed");
+var RoomDB = require("./seedDB/room");
+var seedRoom = require("./seedDB/seedRoom");
+var seedReserve = require("./seedDB/seedReserve");
 mongoose.connect("mongodb+srv://PhucNVH:1@nvhp46-luffx.mongodb.net/Magneton?retryWrites=true", { useNewUrlParser: true });
 //
 //seedDB();
 //RoomDB();
-//seedRoom();
-app.use(bodyParser.urlencoded({ extended: true }));
+//seedReserve();
+var bodyParser = require('body-parser');
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 //
 app.use(express.static("public"));
 //
@@ -60,6 +63,7 @@ app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
     next();
 })
+
 
 app.use(AuthenticationRoutes);
 app.use(PostRoutes);

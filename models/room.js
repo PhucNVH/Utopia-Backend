@@ -7,8 +7,6 @@ var roomSchema = new mongoose.Schema({
         description: "String"
     }],
     Price: Number,
-    Index: Number,
-    RoomLeft: Number,
     Detail: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "RoomDetail"

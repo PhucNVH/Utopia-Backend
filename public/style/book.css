@@ -10,9 +10,33 @@ button{
 input .form-control{
     width: 70%!important;
 }
+.col-md-8 .input-group{
+    margin: 20px 0%;
+}
+table{
+    margin: 7px 0%;
+    background-color: lightblue;
+    border: 1px solid;
+}
+.my-table tr {
+    padding-left: 10%;
+    height: 30px;
+}
+.my-table tr td{
+    padding-left: 10%;
+}
 .bt{
     width:70px;
 }
 label{
     width: 20%!important;
+}
+.form-control{
+
+}
+
+.form-control:focus{
+    border-color: #000000;
+    box-shadow: none;
+    outline: 0 none;
 }

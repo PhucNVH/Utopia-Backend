@@ -30,8 +30,13 @@
 <body>
     <div class="top">
         <h2>You don't have authorization to access this page</h2>
+        
         <a class="btn btn-primary w" href="/">Homepage</a>
         <span style="margin:0% 5px;">or</span>
+        <% if(!checkLogin.isLoggedin) {%>
         <a class="btn btn-primary w" href="/login">Login</a>
+        <% } else {%>
+        <a class="btn btn-primary w" href="/logout">Logout</a>
+        <% } %>
     </div>
     <% include partials/footer.ejs%>

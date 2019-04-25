@@ -22,8 +22,9 @@
                         <input type="password" class="form-control" placeholder="Your Password *" value=""
                             name="password" />
                     </div>
+                    <input type="text" name="nextPath" hidden>
                     <div class="form-group">
-                        <input type="submit" class="btnSubmit" value="Login" />
+                        <input type="submit" class="btnSubmit" onclick="redirect()" value="Login" />
                     </div>
                     <div class="form-group">
                         <a href="#" class="ForgetPwd">Forget Password?</a>
@@ -32,19 +33,24 @@
             </div>
             <div class="col-md-6 login-form-2">
                 <h3>Sign Up</h3>
-                <form action="/signup" method="POST">
+                <form action="/signup" onsubmit="return checkPass()" method="POST">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Username *" value="" name="username" />
+                        <input type="text" class="form-control" placeholder="First Name" name="FirstName" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Last Name" name="LastName" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Username *" value="" name="username"
+                            required />
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="Your Password *" value=""
-                            name="password" />
+                            name="password" required />
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Retype Your Password *" value="" />
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Your Email *" value="" name="email" />
+                        <input type="password" class="form-control" placeholder="Retype Your Password *" value=""
+                            name="password1" required />
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btnSubmit" value="Signup" />
@@ -78,6 +84,24 @@
     });
     if ("<%= method %>" == "login") { active = 1; $(".login-form-1").click(); }
     else { active = 0; $(".login-form-2").click(); }
+</script>
+<script>
+    var previousURL = document.referrer;
+    var nextURL = '/';
+    if (previousURL.includes("dashboard")) { nextURL = '/dashboard'; }
+    else if (previousURL.includes("/rooms/")) { nextURL = '/book'; }
+    else { ; }
+    $("input[name=nextPath]").val(nextURL);
+</script>
+<script>
+    function checkPass() {
+        if ($(".login-form-2 input[name=password]").val() == $(".login-form-2 input[name=password1]").val()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 </script>
 
 </html>

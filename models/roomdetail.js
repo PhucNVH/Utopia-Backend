@@ -1,18 +1,13 @@
 var mongoose = require("mongoose");
-var roomSchema = new mongoose.Schema({
+var roomDetailSchema = new mongoose.Schema({
     Floor: Number,
     Number: Number,
-    IsAvailable: {
-        type: Boolean,
-        default: false,
-    },
-    DateIn: Date,
-    DateOut: Date,
-    Adult: Number,
-    Children: {
-        type: Number,
-        default: 0
-    }
+    Reserve: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "ReserveInfo"
+        }
+    ],
 });
-var room = mongoose.model("RoomDetail", roomSchema);
-module.exports = room;
+var RoomDetail = mongoose.model("RoomDetail", roomDetailSchema);
+module.exports = RoomDetail;

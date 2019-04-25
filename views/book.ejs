@@ -4,56 +4,62 @@
 <div class="mg">
     <h2 class="text-center">Find your room</h2>
     <form class="row" action="/book" method="POST">
-        <div class="table col-md-4">
-            <!-- <tbody>
+        <table class="my-table col-md-4">
+
+            <tbody>
                 <tr>
-                    <td name="room">Room:</td>
-                    <td>Room:</td>
+                    <td>Room Type</td>
+                    <td><%=roomInfo.Name%></td>
                 </tr>
                 <tr>
-                    <td name="number">Number:</td>
-                    <td>Number:</td>
+                    <td>From</td>
+                    <td><%=bookInfo.from%></td>
                 </tr>
                 <tr>
-                    <td name="Price">Price:</td>
-                    <td>Price:</td>
+                    <td>To</td>
+                    <td><%=bookInfo.to%></td>
                 </tr>
-            </tbody> -->
-            <div class="input-group">
-                <label for="Room">Room</label>
-                <input type="text" class="form-control" name="Room" value="PRO" readonly>
-            </div>
-            <div class="input-group">
-                <label for="Number">Number</label>
-                <input type="text" class="form-control" name="Number" value="402" readonly>
-            </div>
-            <div class="input-group">
-                <label for="Price">Price</label>
-                <input type="text" class="form-control" name="Price" value="300" readonly>
-            </div>
-        </div>
+                <tr>
+                    <td>Adult</td>
+                    <td><%=bookInfo.adult%></td>
+                </tr>
+                <tr>
+                    <td>Children</td>
+                    <td><%=bookInfo.children%></td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td><%=roomInfo.Price%></td>
+                </tr>
+            </tbody>
+        </table>
         <div class="col-md-8">
 
             <div class="input-group">
                 <label for="FirstName">First Name</label>
-                <input type="text" class="form-control" name="FirstName" id="FirstName" required>
+                <input type="text" class="form-control" name="FirstName" id="FirstName"
+                    <% if (userInfo.FirstName!= undefined) { %> value="<%=userInfo.FirstName%>" <%} else {}%> required>
             </div>
             <div class="input-group">
                 <label for="LastName">Last Name</label>
-                <input type="text" class="form-control" name="LastName" id="LastName" required>
+                <input type="text" class="form-control" name="LastName" id="LastName"
+                    <% if (userInfo.LastName!= undefined) { %> value="<%=userInfo.LastName%>" <%} else {}%> required>
             </div>
             <div class="input-group">
                 <label for="DateOfBirth">Date Of Birth</label>
-                <input type="date" class="form-control" name="DateOfBirth" id="DateOfBirth" required>
+                <input type="date" class="form-control" name="DateOfBirth" id="DateOfBirth"
+                    <% if (userInfo.phone!= undefined) { %> value="<%=userInfo.phone%>" <%} else {}%> required>
             </div>
             <div class="input-group">
                 <label for="ID">ID</label>
-                <input type="text" class="form-control" name="ID" id="ID" required>
+                <input type="text" class="form-control" name="ID" id="ID" <% if (userInfo.ID!= undefined) { %>
+                    value="<%=userInfo.ID%>" <%} else {}%> required>
             </div>
 
             <div class="input-group" id="phone">
                 <label for="PhoneNumber">Phone Number</label>
-                <input type="text" class="form-control" id="PhoneNumber" required>
+                <input type="text" class="form-control" id="PhoneNumber" <% if (userInfo.phone!= undefined) { %>
+                    value="<%=userInfo.phone%>" <%} else {}%> required>
                 <div class="input-group-append">
                     <input type="button" class="btn btn-outline-secondary bt" value="Verify" onclick="mf()">
                 </div>
@@ -77,8 +83,7 @@
     </form>
 </div>
 <div>
-    <%console.log(currentUser.phone)%>
-    <%=currentUser.phone%>
+
 </div>
 </body>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -109,7 +114,7 @@
     });
     var getPhoneNum = function () {
         var phonenum = document.getElementById("PhoneNumber").value;
-        phonenum = "+84" + phonenum;
+        phonenum = phonenum;
         return phonenum;
     }
     function mf() {

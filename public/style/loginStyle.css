@@ -6,9 +6,10 @@ body{
 .login-container{
     margin-top: 3%;
     min-height: 80vh;
+    max-height: 90vh;
   }
 .login-form-1{
-    padding: 5%;
+    padding: 2% 5%;
     background: #ffffff;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
     min-height: 90vh;
@@ -18,7 +19,7 @@ body{
     color: #333;
 }
 .login-form-2{
-    padding: 5%;
+    padding: 2% 5%;
     background: #0062cc;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
