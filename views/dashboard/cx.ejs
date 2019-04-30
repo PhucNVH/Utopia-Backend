@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Reserve</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Room</th>
+                            <th>Number</th>
+                            <th>Check In</th>
+                            <th>Check Out</th>
+                            <th>Adult</th>
+                            <th>Children</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <%Data.forEach(function(item){%>
+                        <tr>
+                            <%if(item.Name!=undefined) {%>
+                            <td><%=item.Name%></td>
+                            <%} else {%>
+                            <td>Null</td>
+                            <%}%>
+                    <td><%=item.RoomName%></td>
+                            <td><%=item.Number%></td>
+                            <td><%=item.DateIn.getDate()%>/<%=item.DateIn.getMonth()+1%>/<%=item.DateIn.getFullYear()%>
+                            </td>
+                            <td><%=item.DateOut.getDate()%>/<%=item.DateOut.getMonth()+1%>/<%=item.DateOut.getFullYear()%>
+                            </td>
+                            <td><%=item.Adult%></td>
+                            <td><%=item.Children%></td>
+                        </tr>
+                        <%});%>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->

@@ -10,10 +10,10 @@ function seedRoom() {
 
     for (var i = 0; i < 5; i++) {
         var newRoom = {
-            Floor: 2,
+            Floor: 5,
             Number: i,
         }
-        Room.findOne({ Name: "Heritage Room​" }, function (err, room) {
+        Room.findOne({ Price: 300 }, function (err, room) {
             if (err) { console.log(err); }
             else {
                 console.log(room);

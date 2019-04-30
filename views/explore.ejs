@@ -1,16 +1,37 @@
 <% include partials/header.ejs%>
+<style>
+    div .post:hover {
+        background-color: rgb(212, 212, 212);
+    }
+</style>
+<div class="row" style="margin:20px 5%">
+    <div class="col-md-12">
 
-<div class="row" style="display: flex; flex-wrap: wrap;">
-    <% posts.forEach(function(post){ %>
-    <div class="col-md-3 col-sm-6 text-center">
-        <img src="<%=post.Image%>" class="img-thumbnail" height="200">
-        <div class="caption">
+        <% posts.forEach(function(post){ %>
+        <div class="row post" style="margin:0 auto; background-color: ">
+            <div class="col-md-4">
+                <h3><%=post.Title%></h3>
+                <p><%-post.Body.substring(0,50)%></p>
+                <p>
+                    <a href="/explore/<%=post._id%>" class="btn btn-primary" style="border-radius:0">Read More</a>
+                </p>
+            </div>
+            <div class="col-md-8 text-center">
+                <img src="<%=post.Image%>" class="img-thumbnail" style="width:80%">
+                <div class="caption">
+                </div>
+
+
+
+
+            </div>
+            <hr>
         </div>
-        <p>
-            <a href="/explore/<%=post._id%>" class="btn btn-primary">Show Info</a>
-        </p>
+        <% }) %>
+
+
+
     </div>
-    <% }) %>
 
 </div>
 

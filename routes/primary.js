@@ -7,17 +7,14 @@
 //                         
 var express = require("express");
 var router = express.Router();
+
+//Homepage
 router.get("/", function (req, res) {
     res.render("index.ejs");
-    //res.render("home.ejs",{homepageThumbnail: homepageThumbnail});
 });
-//Contact Route
-router.get("/contact", function (req, res) {
-    res.render("contact.ejs");
-});
-router.get("/accountkit", function (req, res) {
-    res.render("accountkit.ejs");
-});
+
+
+//Error Page
 router.get("/404", function (req, res) {
     res.render("404.ejs");
 });

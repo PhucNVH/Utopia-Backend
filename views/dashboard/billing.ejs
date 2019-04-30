@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Utopia | Editor</title>
+    <title>Utopia | Billing</title>
     <link rel="icon" type="image/ico" href="/asset/sunny.ico">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -13,17 +13,15 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
+
+    <link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link type="application/atom+xml" rel="alternate" href="https://quilljs.com/feed.xml"
-        title="Quill - Your powerful rich text editor">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,8 +34,8 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <style>
-    #editor {
-        height: 75vh;
+    #info-box .fx {
+        margin: 2% 1%;
     }
 </style>
 
@@ -212,7 +210,6 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <%console.log(currentUser)%>
                         <img src="<%=currentUser.Avatar%>" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
@@ -230,7 +227,7 @@
                         <a href="/dashboard/room"> <i class="fa fa-search"></i> <span>Room Search</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="/dashboard/billing">
                             <i class="fa fa-list"></i> <span>Billing</span>
                         </a>
@@ -240,7 +237,7 @@
                         <a href="/dashboard/chart"> <i class="fa fa-pie-chart"></i> <span>Chart</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="/dashboard/editor"> <i class="fa fa-edit"></i> <span>Post</span>
                         </a>
                     </li>
@@ -253,56 +250,159 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <div id="toolbar">
-                <span class="ql-formats">
-                    <select class="ql-font"></select>
-                    <select class="ql-size"></select>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-bold"></button>
-                    <button class="ql-italic"></button>
-                    <button class="ql-underline"></button>
-                    <button class="ql-strike"></button>
-                </span>
-                <span class="ql-formats">
-                    <select class="ql-color"></select>
-                    <select class="ql-background"></select>
-                </span>
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Blank page
+                    <small>it all starts here</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="#">Examples</a></li>
+                    <li class="active">Blank page</li>
+                </ol>
+            </section>
 
-                <span class="ql-formats">
+            <!-- Main content -->
+            <section class="content">
 
-                    <button class="ql-blockquote"></button>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-list" value="ordered"></button>
-                    <button class="ql-list" value="bullet"></button>
-                    <button class="ql-indent" value="-1"></button>
-                    <button class="ql-indent" value="+1"></button>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-direction" value="rtl"></button>
-                    <select class="ql-align"></select>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-link"></button>
-                    <button class="ql-image"></button>
-                    <button class="ql-video"></button>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-clean"></button>
-                </span>
-            </div>
-            <div id="editor">
-                <p>Hello World!</p>
-                <p>Some initial <strong>bold</strong> text</p>
-                <p><br></p>
-            </div>
-            <form class="form-group" onsubmit="return SendData();" action="/new" method="POST">
-                <input type="hidden" name="description">
-                <input type="text" name="image" class="form-control" placeholder="Thumbnail Image URl">
-                <input type="text" name="name" class="form-control">
-                <button type="submit" class="btn btn-success">Post</button>
-            </form>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box" style="padding-bottom:5%">
+                            <div class="box-header">
+                                <h3 class="box-title">Bills</h3>
+                                <!-- <div class="box-tools">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input type="text" name="table_search" class="form-control pull-right"
+                                            placeholder="Search">
+
+                                        <div class="input-group-btn">
+                                            <button type="submit" class="btn btn-default"><i
+                                                    class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding" id="table-box">
+                                <form class="form" id="info-box" hidden>
+                                    <div class="row box-body" style="padding: 2% 5%; width: 100%;">
+                                        <div class="col-md-6">
+                                            <div class="row fx">
+                                                <label class="col-sm-2 col-form-label" for="Name">Name</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control " name="Name" disabled value="">
+                                                </div>
+                                            </div>
+                                            <div class="row fx">
+                                                <label class="col-sm-2 col-form-label" for="Username">Username</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" name="Username" disabled value="">
+                                                </div>
+                                            </div>
+                                            <div class="row fx">
+                                                <label class="col-sm-2 col-form-label" for="Room">Room</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" name="Room" disabled value="">
+                                                </div>
+                                            </div>
+                                            <div class="row fx">
+                                                <label class="col-sm-2 col-form-label" for="DateIn">DateIn</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" name="DateIn" disabled value="">
+                                                </div>
+                                            </div>
+                                            <div class="row fx">
+                                                <label class="col-sm-2 col-form-label" for="DateOut">DateOut</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" name="DateOut" disabled value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row fx">
+                                                <label class="col-sm-2 col-form-label" for="Price">Price</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" name="Price" disabled value="">
+                                                </div>
+                                            </div>
+                                            <div class="row fx">
+                                                <label class="col-sm-2 col-form-label" for="Fee">Fee</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" name="Fee" disabled value="">
+                                                </div>
+                                            </div>
+                                            <div class="row fx">
+                                                <label class="col-sm-2 col-form-label" for="Others">Others</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" name="Others" disabled value="">
+                                                </div>
+                                            </div>
+                                            <div class="row fx">
+                                                <label class="col-sm-2 col-form-label" for="Discount">Discount</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" class="form-control" name="Discount"
+                                                        disabled value="">
+                                                </div>
+                                            </div>
+                                            <div class="row fx">
+                                                <label class="col-sm-2 col-form-label" for="Total">Total</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" name="Total" disabled value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-footer">
+                                        <button class="btn btn-success pull-right" type="submit">Submit</button>
+                                        <button class="btn btn-primary" onclick="return back()">Back</button>
+                                    </div>
+                                </form>
+                                <table id="table1" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th hidden></th>
+                                            <th>User</th>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Room</th>
+                                            <th>Date CheckIn</th>
+                                            <th>Date CheckOut</th>
+                                            <th>Total</th>
+                                            <th>isPaid</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%for(var i=0;i<Data.length;i++){%>
+                                        <tr>
+                                            <td hidden><%=Data[i]._id%></td>
+                                            <td><%=Data[i].Username%></td>
+                                            <td><%=Data[i].Name%></td>
+                                            <td><%=Data[i].Room%></td>
+                                            <td><%=Data[i].Floor%>-<%=Data[i].Number%></td>
+                                            <td><%=Data[i].DateReserve.getDate()%>/<%=Data[i].DateReserve.getMonth()+1%>/<%=Data[i].DateReserve.getFullYear()%>
+                                            </td>
+                                            <td><%=Data[i].DateOut.getDate()%>/<%=Data[i].DateOut.getMonth()+1%>/<%=Data[i].DateOut.getFullYear()%>
+                                            </td>
+                                            <td><%=Data[i].Total%></td>
+                                            <%if(Data[i].isPaid){%>
+                                            <td><span class="label label-success">Paid</span></td>
+                                            <% }else{%>
+                                            <td><span class="label label-warning">Not Paid</span></td>
+                                            <%}%>
+                                        </tr>
+                                        <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                </div>
+
+            </section>
+            <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
 
@@ -516,6 +616,10 @@
     <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- DataTables -->
+    <script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <!-- SlimScroll -->
     <script src="../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -524,32 +628,45 @@
     <script src="../../dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="../../dist/js/demo.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
         $(document).ready(function () {
             $('.sidebar-menu').tree()
         })
     </script>
-
-
-    <!-- Initialize Quill editor -->
     <script>
-
-        var quill = new Quill('#editor', {
-            modules: {
-                syntax: true,
-                toolbar: '#toolbar'
-            },
-            placeholder: 'Compose an epic...',
-            theme: 'snow'
-        });
-
+        $(function () {
+            $('#table1').DataTable();
+        })
     </script>
     <script>
-        function SendData() {
-            $('input[name=description]').val(quill.root.innerHTML);
+        $("tr").dblclick(function () {
+            $("#table1").hide();
+            $('#table1').parents('div.dataTables_wrapper').first().hide();
+            var j = this.children[0].innerText;
+            $.get("/dashboard/billing/" + j, function (data, status) {
+            }).done(function (data) {
+                console.log(data);
+                $("#info-box input[name=Name]").val(data.Name);
+                $("#info-box input[name=Username]").val(data.Username);
+                $("#info-box input[name=Room]").val(data.Room);
+                $("#info-box input[name=DateIn]").val(data.DateIn);
+                $("#info-box input[name=DateOut]").val(data.DateOut);
+                $("#info-box input[name=Price]").val(data.Price);
+                $("#info-box input[name=Fee]").val(data.Fee);
+                $("#info-box input[name=Others]").val(data.Others);
+                $("#info-box input[name=Discount]").val(data.Discount);
+                $("#info-box input[name=Total]").val(data.Total);
+                $("#info-box").show();
+            }
+            );
+        }); 
+    </script>
+    <script>
+        function back() {
+            $("#info-box").hide();
+            $("#table1").show();
+            $('#table1').parents('div.dataTables_wrapper').first().show();
+            return false;
         }
     </script>
 </body>

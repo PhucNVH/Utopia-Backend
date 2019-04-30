@@ -39,7 +39,7 @@
             <% rooms.forEach((room)=>{%>
             <div class="col-md-4">
                 <a href='/rooms/<%=room.Name%>'>
-                    <h3><%=room.Name%></h3>
+                    <h3 style=""><%=room.Name%></h3>
                     <img class="rounded mx-auto d-block" src="<%=room.Image[0].url%>">
                     <div>From: <%=room.Price%>$</div>
                     <% room.Tag.forEach((tag)=>{%>
@@ -52,9 +52,7 @@
     </div>
 </div>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+<script src="/library/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {
         // Activate Carousel with a specified interval

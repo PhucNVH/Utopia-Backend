@@ -1,6 +1,6 @@
 body{
     background-color: #e9ecef;
-    color: 	#002263;
+    color: 	rgb(128, 128, 192);
 }
 h1{
     font-size: 2rem;
@@ -13,7 +13,6 @@ h2{
     max-height: 450px!important;
 }
 .rounded{
-
     width: 100%;
     height: 200px;
 }

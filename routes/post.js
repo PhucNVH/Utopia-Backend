@@ -10,6 +10,9 @@ var express = require("express");
 var room = require("../models/room");
 var roomDetail = require("../models/roomdetail");
 var ReserveInfo = require("../models/ReserveInfo");
+var Message = require("../models/message");
+
+var billInfo = require("../models/bill");
 var post = require("../models/post");
 var Comment = require("../models/comment");
 var router = express.Router();
@@ -17,20 +20,9 @@ var router = express.Router();
 
 //add a new post
 
-router.get("/new", isAdmin, function (req, res) {
-    res.render("new");
-});
-
-router.post("/new", isAdmin, function (req, res) {
-    var newPost = { Title: req.body.name, Image: req.body.image, Body: req.body.description, Author: "PhucNVH" }
-    post.create(newPost, function (err, image) {
-        if (err) console.log(err);
-        else res.redirect("/explore");
-    });
-});
 
 
-// view posts
+// View All Post
 router.get("/explore", function (req, res) {
     post.find({}, function (err, PostfromDB) {
         if (err) console.log(err);
@@ -39,7 +31,7 @@ router.get("/explore", function (req, res) {
         }
     });
 });
-//view specific post
+//view a specific post
 router.get("/explore/:post", function (req, res) {
     post.findById(req.params.post).populate("Comments").exec(function (err, foundPost) {
         if (err) { console.log(err); }
@@ -73,9 +65,7 @@ router.post("/explore/:post", isLoggedin, function (req, res) {
     });
 });
 
-
-
-// Room And Service
+//View All Room
 router.get("/rooms", function (req, res) {
     room.find({}, function (err, roomsFromDB) {
         if (err) console.log(err);
@@ -84,51 +74,96 @@ router.get("/rooms", function (req, res) {
         }
     });
 });
+//View A specific room
 router.get("/rooms/:name", function (req, res) {
+
+    room.findOne({ Name: req.params.name }).populate("Comments").exec(function (err, roomfromDB) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if (roomfromDB == null) { res.redirect("/404"); }
+            else { res.render("room.ejs", { room: roomfromDB, user: req.user, info: { message: "Normal" } }); }
+        }
+    });
+});
+
+//check if room is available
+router.post("/rooms/:name", isLoggedin, function (req, res) {
 
     room.findOne({ Name: req.params.name }, function (err, roomfromDB) {
         if (err) {
             console.log(err);
         }
         else {
-            if (roomfromDB == null) { res.redirect("/404"); }
-            else { res.render("room.ejs", { room: roomfromDB, info: { message: "Normal" } }); }
+            var CommentAdd = {
+                Body: req.body.Body,
+                Author: { id: req.user._id, username: req.user.username }
+            }
+            Comment.create(CommentAdd, function (err, newComment) {
+
+                roomfromDB.Comments.push(newComment);
+                roomfromDB.save()
+                if (roomfromDB == null) { res.redirect("/404"); }
+                else { res.redirect("/rooms/" + req.params.name); }
+            });
+
+
         }
     });
 });
-
 //Book route
 router.get("/book", findRoom, isLoggedin, function (req, res) {
     req.session.bookInfo = req.query;
-    console.log(req.user);
     { res.render("book.ejs", { bookInfo: req.query, roomInfo: req.session.RoomInfo, userInfo: req.user }); }
 }
 );
 router.post("/book", isLoggedin, function (req, res) {
-
     roomDetail.findOne({ _id: req.session.ReserveInfo._id }, function (err, foundRoom) {
         if (err) console.log(err);
         else {
+            console.log(foundRoom);
             ReserveInfo.create({ DateIn: req.session.bookInfo.from, DateOut: req.session.bookInfo.to, Children: req.session.bookInfo.children, Adult: req.session.bookInfo.adult, username: req.user },
                 function (err, newReserve) {
                     if (err) console.log(err);
                     else {
+                        billInfo.create({
+                            Reserve: newReserve,
+                            Price: req.session.RoomInfo.Price,
+                            Total: req.session.RoomInfo.Price,
+                            Room: req.session.RoomInfo.Name,
+                            Number: req.session.RoomInfo.Number
+                        });
                         foundRoom.Reserve.push(newReserve);
+                        console.log(foundRoom);
                         foundRoom.save();
                     }
                 });
         }
     });
 });
-router.get("/reserve", function (req, res) {
-    res.render("reserve.ejs");
+
+
+
+
+
+router.get("/weddings-and-events", function (req, res) {
+    res.render("service.ejs");
 }
 );
-router.post("/reserve", function (req, res) {
 
-    console.log(req.body.in);
-    res.redirect("/reserve");
+//customer send message
+router.post("/message", function (req, res) {
+    Message.create({ Name: req.body.name, Email: req.body.email, Body: req.body.body }, function (err, newMessage) {
+        if (err) res.json({ Success: false });
+        res.json({ Success: true });
+    });
 });
+//view user profile
+router.get("/profile", isLoggedin, function (req, res) {
+    res.render("profile.ejs", { Data: req.user });
+}
+);
 
 
 //check login when enter the "new" route
@@ -151,14 +186,16 @@ function isAdmin(req, res, next) {
         res.render("warning.ejs", { checkLogin: user });
     }
 }
+
+
+//check if room is avaible
 function findRoom(req, res, next) {
     if (req.query.Name == null) res.redirect("/rooms");
     else {
         room.
             findOne({ Name: req.query.Name }).
-            populate({ path: 'Detail' }).
-            populate([{ path: 'Reserve', match: { $or: [{ DateIn: { $gt: req.query.from, $lt: req.query.to } }, { DateOut: { $gt: req.body.in, $lt: req.body.out } }] } }]).
-            exec(function (err, Room) {
+            populate({ path: 'Detail', populate: { path: 'Reserve', match: { $or: [{ DateIn: { $gt: req.query.from, $lt: req.query.to } }, { DateOut: { $gt: req.query.from, $lt: req.query.to } }] } } })
+            .exec(function (err, Room) {
                 if (err) console(err);
                 var counter = 0;
                 for (var i = 0; i < Room.Detail.length; i++) {

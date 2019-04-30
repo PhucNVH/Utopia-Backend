@@ -21,7 +21,7 @@ var PostRoutes = require("./routes/post");
 DashboardRoutes = require("./routes/dashboard");
 
 //mongoDB schema
-var client = require("./models/client");
+var bill = require("./models/bill");
 var room = require("./models/room");
 var post = require("./models/post");
 var user = require("./models/user");
@@ -31,7 +31,7 @@ var RoomDB = require("./seedDB/room");
 var seedRoom = require("./seedDB/seedRoom");
 var seedReserve = require("./seedDB/seedReserve");
 mongoose.connect("mongodb+srv://PhucNVH:1@nvhp46-luffx.mongodb.net/Magneton?retryWrites=true", { useNewUrlParser: true });
-//
+//seedRoom();
 //seedDB();
 //RoomDB();
 //seedReserve();

@@ -4,13 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Utopia | Editor</title>
+    <title>Utopia | Check Room</title>
     <link rel="icon" type="image/ico" href="/asset/sunny.ico">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- DataTable -->
+    <link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Font Awesome -->
+
     <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
@@ -19,11 +22,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link type="application/atom+xml" rel="alternate" href="https://quilljs.com/feed.xml"
-        title="Quill - Your powerful rich text editor">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -35,11 +34,6 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<style>
-    #editor {
-        height: 75vh;
-    }
-</style>
 
 <body class="hold-transition skin-blue sidebar-mini">
     <!-- Site wrapper -->
@@ -212,7 +206,6 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <%console.log(currentUser)%>
                         <img src="<%=currentUser.Avatar%>" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
@@ -223,10 +216,7 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
-
-
-
-                    <li>
+                    <li class="active">
                         <a href="/dashboard/room"> <i class="fa fa-search"></i> <span>Room Search</span>
                         </a>
                     </li>
@@ -240,7 +230,7 @@
                         <a href="/dashboard/chart"> <i class="fa fa-pie-chart"></i> <span>Chart</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="/dashboard/editor"> <i class="fa fa-edit"></i> <span>Post</span>
                         </a>
                     </li>
@@ -253,56 +243,206 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <div id="toolbar">
-                <span class="ql-formats">
-                    <select class="ql-font"></select>
-                    <select class="ql-size"></select>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-bold"></button>
-                    <button class="ql-italic"></button>
-                    <button class="ql-underline"></button>
-                    <button class="ql-strike"></button>
-                </span>
-                <span class="ql-formats">
-                    <select class="ql-color"></select>
-                    <select class="ql-background"></select>
-                </span>
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Search Room
+                    <small>Check room availability</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="#" class="active">Search Room</a></li>
+                </ol>
+            </section>
 
-                <span class="ql-formats">
+            <!-- Main content -->
+            <section class="content">
+                <div class="box box-info" id="Search">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Search Room</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal" action="/dashboard/room" method="POST">
 
-                    <button class="ql-blockquote"></button>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-list" value="ordered"></button>
-                    <button class="ql-list" value="bullet"></button>
-                    <button class="ql-indent" value="-1"></button>
-                    <button class="ql-indent" value="+1"></button>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-direction" value="rtl"></button>
-                    <select class="ql-align"></select>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-link"></button>
-                    <button class="ql-image"></button>
-                    <button class="ql-video"></button>
-                </span>
-                <span class="ql-formats">
-                    <button class="ql-clean"></button>
-                </span>
-            </div>
-            <div id="editor">
-                <p>Hello World!</p>
-                <p>Some initial <strong>bold</strong> text</p>
-                <p><br></p>
-            </div>
-            <form class="form-group" onsubmit="return SendData();" action="/new" method="POST">
-                <input type="hidden" name="description">
-                <input type="text" name="image" class="form-control" placeholder="Thumbnail Image URl">
-                <input type="text" name="name" class="form-control">
-                <button type="submit" class="btn btn-success">Post</button>
-            </form>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="form-group col-md-7">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">Room Type</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" id="exampleFormControlSelect1" name="type">
+                                            <option>Courtyard Room</option>
+                                            <option>Postmaster Room</option>
+                                            <option>Heritage Room</option>
+                                            <option>Palladian Suite</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-7">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">From</label>
+
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" name="from" <%if(From){%>
+                                            value="<%=From%>" <%}%>>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-7">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">To</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" name="to" <%if(From){%> value="<%=To%>" <%}%>>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button class="btn btn-info pull-right" type="submit">Search</button>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+                <div class="box box-info" id="Found" <%if(!Room){%>hidden<%}%>>
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Found Room</h3>
+                    </div>
+                    <div class="box-body table-responsive no-padding" id="table-box">
+                        <table id="table1" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Price</th>
+                                    <th>Floor</th>
+                                    <th>Number</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                <%if(Room){%> <%Room.forEach(function(room){%> <tr>
+                                        <td><%=room._id%></td>
+                                        <td><%=Type.Name%></td>
+                                        <td><%=Type.Price%></td>
+                                        <td><%=room.Floor%></td>
+                                        <td><%=room.Number%></td>
+                                        </tr>
+                                        <%});%>
+                                        <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="box box-info" id="Book" hidden>
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Search Room</h3>
+                    </div>
+                    <form class="form-horizontal">
+                        <div class="box-body">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12" >
+                                        <label for="Type" class="col-sm-3 control-label">Room Type</label>
+                                        <div class="col-sm-9">
+                                            <input class="form-control" type="text" id="exampleFormControlSelect1" name="Type" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="Price" class="col-sm-3 control-label">Price</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="Price" disabled>
+                                            </div>
+                                        </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="From" class="col-sm-3 control-label">From</label>
+
+                                        <div class="col-sm-9">
+                                            <input  disabled type="date" class="form-control" name="From" <%if(From){%>
+                                        value="<%=From%>" <%}%> >
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="To" class="col-sm-3 control-label">To</label>
+                                        <div class="col-sm-9">
+                                            <input disabled type="date" class="form-control" name="To" <%if(From){%>
+                                        value="<%=To%>" <%}%> >
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                    <label for="Floor" class="col-sm-3 control-label">Floor</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="Floor" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="Number" class="col-sm-3 control-label">Number</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="Number" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="RoomID" class="col-sm-3 control-label">Room ID</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="RoomID" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12">
+                                        <label for="Adult" class="col-sm-3 control-label">Adult</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="exampleFormControlSelect1" name="Adult">
+                                                <%for(var i=1;i<=5;i++){%>
+                                        <option><%=i%></option>
+                                        <%}%>
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="Children" class="col-sm-3 control-label">Children</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="exampleFormControlSelect1" name="Children">
+                                                <%for(var i=1;i<=5;i++){%>
+                                        <option><%=i%></option>
+                                        <%}%>
+                                                </select>
+                                           </div>
+                                        </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="Name" class="col-sm-3 control-label">Name</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="Name">
+                                            </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="ID" class="col-sm-3 control-label">ID</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" name="ID">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="DateOfBirth" class="col-sm-3 control-label">Date Of Birth</label>
+                                        <div class="col-sm-9">
+                                            <input type="date" class="form-control" name="DateOfBirth">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="Phone" class="col-sm-3 control-label">Phone Number</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" name="Phone">
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-warning" onclick="return back()">Back</button>
+                            <button class="btn btn-info pull-right" onclick="return book()">Book</button>
+                        </div>
+                    </form>
+
+                </div>
+            </section>
+            <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
 
@@ -319,7 +459,6 @@
             <!-- Create the tabs -->
             <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
                 <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-
                 <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
             </ul>
             <!-- Tab panes -->
@@ -516,6 +655,9 @@
     <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- DataTable -->
+    <script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <!-- SlimScroll -->
     <script src="../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -524,34 +666,57 @@
     <script src="../../dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="../../dist/js/demo.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
         $(document).ready(function () {
             $('.sidebar-menu').tree()
         })
     </script>
 
-
-    <!-- Initialize Quill editor -->
     <script>
-
-        var quill = new Quill('#editor', {
-            modules: {
-                syntax: true,
-                toolbar: '#toolbar'
-            },
-            placeholder: 'Compose an epic...',
-            theme: 'snow'
-        });
-
+        $(function () {
+            $('#table1').DataTable();
+        })
     </script>
     <script>
-        function SendData() {
-            $('input[name=description]').val(quill.root.innerHTML);
+        function book() {
+            // $.post("/dashboard/book", {
+            //     Name: $("select[name=type]").val(),
+            //     from: $("#Book input[name=From]").val(),
+            //     to: $("#Book input[name=To]").val(),
+            //     adult: $("#Book select[name=Adult]").val(),
+            //     children: $("#Book select[name=Children]").val(),
+            //     RoomID: $("#Book input[name=RoomID]").val(),
+            //     Price: $("#Book input[name=Price]").val(),
+            //     Floor: $("#Book input[name=Floor]").val(),
+            //     Number: $("#Book input[name=Number]").val(),
+            // }, function (data, status) {
+            //     console.log(data);
+            // });
+            return false;
         }
     </script>
+    <script>
+        $("tr").dblclick(function () {
+            $("#Found").hide();
+            $("#Book").show();
+            $("#Book input[name=Type]").val($(this)[0].children[1].innerText);
+            $("#Book input[name=From]").val($("#Search input[name=from]").val());
+            $("#Book input[name=To]").val($("#Search input[name=to]").val());
+            $("#Book input[name=RoomID]").val($(this)[0].children[0].innerText);
+            $("#Book input[name=Floor]").val($(this)[0].children[3].innerText);
+            $("#Book input[name=Number]").val($(this)[0].children[4].innerText);
+            $("#Book input[name=Price]").val($(this)[0].children[2].innerText);
+        }); 
+    </script>
+    <script>
+        function back() {
+            $("#Found").show();
+            $("#Book").hide();
+            return false;
+        }
+    </script>
+    
+
 </body>
 
 </html>

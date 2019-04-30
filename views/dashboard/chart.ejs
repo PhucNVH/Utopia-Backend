@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Data Tables</title>
+  <title>Utopia | Flot Charts</title>
+  <link rel="icon" type="image/ico" href="/asset/sunny.ico">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -13,8 +14,6 @@
   <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -316,189 +315,38 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
           <div class="pull-left image">
-            <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            <%console.log(currentUser)%>
+            <img src="<%=currentUser.Avatar%>" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <p>Alexander Pierce</p>
+            <p><%=currentUser.username%></p>
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
           </div>
         </div>
-        <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
-          <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="Search...">
-            <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
-          </div>
-        </form>
-        <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">MAIN NAVIGATION</li>
 
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-files-o"></i>
-              <span>Layout Options</span>
-              <span class="pull-right-container">
-                <span class="label label-primary pull-right">4</span>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="../layout/top-nav"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-              <li><a href="../layout/boxed"><i class="fa fa-circle-o"></i> Boxed</a></li>
-              <li><a href="../layout/fixed"><i class="fa fa-circle-o"></i> Fixed</a></li>
-              <li><a href="../layout/collapsed-sidebar"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-            </ul>
-          </li>
+
+
           <li>
-            <a href="../widgets">
-              <i class="fa fa-th"></i> <span>Widgets</span>
-              <span class="pull-right-container">
-                <small class="label pull-right bg-green">new</small>
-              </span>
+            <a href="/dashboard/room"> <i class="fa fa-search"></i> <span>Room Search</span>
             </a>
           </li>
           <li>
-            <a href="../dashboard/data">
-              <i class="fa fa-th"></i> <span>Reserve</span>
-            </a>
-          </li>
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-pie-chart"></i>
-              <span>Charts</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="../charts/chartjs"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-              <li><a href="../charts/morris"><i class="fa fa-circle-o"></i> Morris</a></li>
-              <li><a href="../charts/flot"><i class="fa fa-circle-o"></i> Flot</a></li>
-              <li><a href="../charts/inline"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-laptop"></i>
-              <span>UI Elements</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="../UI/general"><i class="fa fa-circle-o"></i> General</a></li>
-              <li><a href="../UI/icons"><i class="fa fa-circle-o"></i> Icons</a></li>
-              <li><a href="../UI/buttons"><i class="fa fa-circle-o"></i> Buttons</a></li>
-              <li><a href="../UI/sliders"><i class="fa fa-circle-o"></i> Sliders</a></li>
-              <li><a href="../UI/timeline"><i class="fa fa-circle-o"></i> Timeline</a></li>
-              <li><a href="../UI/modals"><i class="fa fa-circle-o"></i> Modals</a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-edit"></i> <span>Forms</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="../forms/general"><i class="fa fa-circle-o"></i> General Elements</a></li>
-              <li><a href="../forms/advanced"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-              <li><a href="../forms/editors"><i class="fa fa-circle-o"></i> Editors</a></li>
-            </ul>
-          </li>
-          <li class="treeview active">
-            <a href="#">
-              <i class="fa fa-table"></i> <span>Tables</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="simple"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-              <li class="active"><a href="data"><i class="fa fa-circle-o"></i> Data tables</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="../calendar">
-              <i class="fa fa-calendar"></i> <span>Calendar</span>
-              <span class="pull-right-container">
-                <small class="label pull-right bg-red">3</small>
-                <small class="label pull-right bg-blue">17</small>
-              </span>
+            <a href="/dashboard/billing">
+              <i class="fa fa-list"></i> <span>Billing</span>
             </a>
           </li>
           <li>
-            <a href="../mailbox/mailbox">
-              <i class="fa fa-envelope"></i> <span>Mailbox</span>
-              <span class="pull-right-container">
-                <small class="label pull-right bg-yellow">12</small>
-                <small class="label pull-right bg-green">16</small>
-                <small class="label pull-right bg-red">5</small>
-              </span>
+          <li class="active">
+            <a href="/dashboard/chart"> <i class="fa fa-pie-chart"></i> <span>Chart</span>
             </a>
           </li>
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-folder"></i> <span>Examples</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+          <li>
+            <a href="/dashboard/editor"> <i class="fa fa-edit"></i> <span>Post</span>
             </a>
-            <ul class="treeview-menu">
-              <li><a href="../examples/invoice"><i class="fa fa-circle-o"></i> Invoice</a></li>
-              <li><a href="../examples/profile"><i class="fa fa-circle-o"></i> Profile</a></li>
-              <li><a href="../examples/login"><i class="fa fa-circle-o"></i> Login</a></li>
-              <li><a href="../examples/register"><i class="fa fa-circle-o"></i> Register</a></li>
-              <li><a href="../examples/lockscreen"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-              <li><a href="../examples/404"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-              <li><a href="../examples/500"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-              <li><a href="../examples/blank"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-              <li><a href="../examples/pace"><i class="fa fa-circle-o"></i> Pace Page</a></li>
-            </ul>
           </li>
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-share"></i> <span>Multilevel</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-              <li class="treeview">
-                <a href="#"><i class="fa fa-circle-o"></i> Level One
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                  <li class="treeview">
-                    <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                      <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                      </span>
-                    </a>
-                    <ul class="treeview-menu">
-                      <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                      <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-            </ul>
-          </li>
-          <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-          <li class="header">LABELS</li>
-          <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-          <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-          <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
         </ul>
       </section>
       <!-- /.sidebar -->
@@ -509,13 +357,12 @@
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Data Tables
-          <small>advanced tables</small>
+          Bussiness Activity Charts
+          <small>preview sample</small>
         </h1>
         <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li><a href="#">Tables</a></li>
-          <li class="active">Data tables</li>
+          <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li><a href="#">Charts</a></li>
         </ol>
       </section>
 
@@ -523,44 +370,83 @@
       <section class="content">
         <div class="row">
           <div class="col-xs-12">
-            <div class="box">
-              <div class="box-header">
-                <h3 class="box-title">Reserve</h3>
+            <!-- interactive chart -->
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <i class="fa fa-bar-chart-o"></i>
+
+                <h3 class="box-title">Interactive Area Chart</h3>
+
+                <div class="box-tools pull-right">
+                  Real time
+                  <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+                    <button type="button" class="btn btn-default btn-xs active" data-toggle="on">On</button>
+                    <button type="button" class="btn btn-default btn-xs" data-toggle="off">Off</button>
+                  </div>
+                </div>
               </div>
-              <!-- /.box-header -->
               <div class="box-body">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Room</th>
-                      <th>Number</th>
-                      <th>Check In</th>
-                      <th>Check Out</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <%Data.forEach(function(item){%>
-                    <tr>
-                      <td><%=item.RoomName%></td>
-                      <td><%=item.Number%></td>
-                      <td><%=item.RoomName%></td>
-                      <td><%=item.DateIn.getDay()%>/<%=item.DateIn.getMonth()%>/<%=item.DateIn.getFullYear()%></td>
-                      <td><%=item.DateOut.getDay()%>/<%=item.DateOut.getMonth()%>/<%=item.DateOut.getFullYear()%></td>
-                    </tr>
-                    <%});%>
-                  </tbody>
-                </table>
+                <div id="interactive" style="height: 300px;"></div>
               </div>
-              <!-- /.box-body -->
+              <!-- /.box-body-->
             </div>
             <!-- /.box -->
+
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+
+
+          <div class="col-md-6">
+            <!-- Bar chart -->
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <i class="fa fa-bar-chart-o"></i>
+
+                <h3 class="box-title">Monthly Income Chart</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                      class="fa fa-times"></i></button>
+                </div>
+              </div>
+              <div class="box-body">
+                <div id="bar-chart" style="height: 300px;"></div>
+              </div>
+              <!-- /.box-body-->
+            </div>
+            <!-- /.box -->
+          </div>
+          <div class="col-md-6">
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <i class="fa fa-bar-chart-o"></i>
+
+                <h3 class="box-title">Total Revenue Chart</h3>
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                      class="fa fa-times"></i></button>
+                </div>
+              </div>
+              <div class="box-body">
+                <div id="donut-chart" style="height: 300px;"></div>
+              </div>
+              <!-- /.box-body-->
+            </div>
           </div>
           <!-- /.col -->
         </div>
         <!-- /.row -->
       </section>
       <!-- /.content -->
+
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
@@ -771,30 +657,284 @@
   <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
   <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <!-- DataTables -->
-  <script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-  <script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-  <!-- SlimScroll -->
-  <script src="../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
   <!-- FastClick -->
   <script src="../../bower_components/fastclick/lib/fastclick.js"></script>
   <!-- AdminLTE App -->
   <script src="../../dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="../../dist/js/demo.js"></script>
-  <!-- page script -->
+  <!-- FLOT CHARTS -->
+  <script src="../../bower_components/Flot/jquery.flot.js"></script>
+  <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+  <script src="../../bower_components/Flot/jquery.flot.resize.js"></script>
+  <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+  <script src="../../bower_components/Flot/jquery.flot.pie.js"></script>
+  <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+  <script src="../../bower_components/Flot/jquery.flot.categories.js"></script>
+  <!-- Page script -->
   <script>
     $(function () {
-      $('#example1').DataTable()
-      $('#example2').DataTable({
-        'paging': true,
-        'lengthChange': false,
-        'searching': false,
-        'ordering': true,
-        'info': true,
-        'autoWidth': false
+      /*
+       * Flot Interactive Chart
+       * -----------------------
+       */
+      // We use an inline data source in the example, usually data would
+      // be fetched from a server
+      var data = [], totalPoints = 30
+
+      function getRandomData() {
+
+        if (data.length > 0)
+          data = data.slice(1)
+
+        // Do a random walk
+        while (data.length < totalPoints) {
+
+          var prev = data.length > 0 ? data[data.length - 1] : 50,
+            y = prev + Math.random() * 10 - 5
+
+          if (y < 0) {
+            y = 0
+          } else if (y > 100) {
+            y = 100
+          }
+
+          data.push(y)
+        }
+
+        // Zip the generated y values with the x values
+        var res = []
+        for (var i = 0; i < data.length; ++i) {
+          res.push([i, data[i]])
+        }
+
+        return res
+      }
+
+      var interactive_plot = $.plot('#interactive', [getRandomData()], {
+        grid: {
+          borderColor: '#f3f3f3',
+          borderWidth: 1,
+          tickColor: '#f3f3f3'
+        },
+        series: {
+          shadowSize: 0, // Drawing is faster without shadows
+          color: '#3c8dbc'
+        },
+        lines: {
+          fill: true, //Converts the line chart to area chart
+          color: '#3c8dbc'
+        },
+        yaxis: {
+          min: 0,
+          max: 100,
+          show: true
+        },
+        xaxis: {
+          show: true
+        }
       })
+
+      var updateInterval = 1000 //Fetch data ever x milliseconds
+      var realtime = 'on' //If == to on then fetch data every x seconds. else stop fetching
+      function update() {
+
+        interactive_plot.setData([getRandomData()])
+
+        // Since the axes don't change, we don't need to call plot.setupGrid()
+        interactive_plot.draw()
+        if (realtime === 'on')
+          setTimeout(update, updateInterval)
+      }
+
+      //INITIALIZE REALTIME DATA FETCHING
+      if (realtime === 'on') {
+        update()
+      }
+      //REALTIME TOGGLE
+      $('#realtime .btn').click(function () {
+        if ($(this).data('toggle') === 'on') {
+          realtime = 'on'
+        }
+        else {
+          realtime = 'off'
+        }
+        update()
+      })
+      /*
+       * END INTERACTIVE CHART
+       */
+
+      /*
+       * LINE CHART
+       * ----------
+       */
+      //LINE randomly generated data
+
+      var sin = [], cos = []
+      for (var i = 0; i < 14; i += 0.5) {
+        sin.push([i, Math.sin(i)])
+        cos.push([i, Math.cos(i)])
+      }
+      var line_data1 = {
+        data: sin,
+        color: '#3c8dbc'
+      }
+      var line_data2 = {
+        data: cos,
+        color: '#00c0ef'
+      }
+      $.plot('#line-chart', [line_data1, line_data2], {
+        grid: {
+          hoverable: true,
+          borderColor: '#f3f3f3',
+          borderWidth: 1,
+          tickColor: '#f3f3f3'
+        },
+        series: {
+          shadowSize: 0,
+          lines: {
+            show: true
+          },
+          points: {
+            show: true
+          }
+        },
+        lines: {
+          fill: false,
+          color: ['#3c8dbc', '#f56954']
+        },
+        yaxis: {
+          show: true
+        },
+        xaxis: {
+          show: true
+        }
+      })
+      //Initialize tooltip on hover
+      $('<div class="tooltip-inner" id="line-chart-tooltip"></div>').css({
+        position: 'absolute',
+        display: 'none',
+        opacity: 0.8
+      }).appendTo('body')
+      $('#line-chart').bind('plothover', function (event, pos, item) {
+
+        if (item) {
+          var x = item.datapoint[0].toFixed(2),
+            y = item.datapoint[1].toFixed(2)
+
+          $('#line-chart-tooltip')(item.series.label + ' of ' + x + ' = ' + y)
+            .css({ top: item.pageY + 5, left: item.pageX + 5 })
+            .fadeIn(200)
+        } else {
+          $('#line-chart-tooltip').hide()
+        }
+
+      })
+      /* END LINE CHART */
+
+      /*
+       * FULL WIDTH STATIC AREA CHART
+       * -----------------
+       */
+      var areaData = [[2, 88.0], [3, 93.3], [4, 102.0], [5, 108.5], [6, 115.7], [7, 115.6],
+      [8, 124.6], [9, 130.3], [10, 134.3], [11, 141.4], [12, 146.5], [13, 151.7], [14, 159.9],
+      [15, 165.4], [16, 167.8], [17, 168.7], [18, 169.5], [19, 168.0]]
+      $.plot('#area-chart', [areaData], {
+        grid: {
+          borderWidth: 0
+        },
+        series: {
+          shadowSize: 0, // Drawing is faster without shadows
+          color: '#00c0ef'
+        },
+        lines: {
+          fill: true //Converts the line chart to area chart
+        },
+        yaxis: {
+          show: false
+        },
+        xaxis: {
+          show: false
+        }
+      })
+
+      /* END AREA CHART */
+
+      /*
+       * BAR CHART
+       * ---------
+       */
+
+      var bar_data = {
+        data: [['January', 10], ['February', 8], ['March', 4], ['April', 13], ['May', 17], ['June', 9]],
+        color: '#3c8dbc'
+      }
+      $.plot('#bar-chart', [bar_data], {
+        grid: {
+          borderWidth: 1,
+          borderColor: '#f3f3f3',
+          tickColor: '#f3f3f3'
+        },
+        series: {
+          bars: {
+            show: true,
+            barWidth: 0.5,
+            align: 'center'
+          }
+        },
+        xaxis: {
+          mode: 'categories',
+          tickLength: 0
+        }
+      })
+      /* END BAR CHART */
+
+      /*
+       * DONUT CHART
+       * -----------
+       */
+
+      var donutData = [
+        { label: 'Service', data: 30, color: '#3c8dbc' },
+        { label: 'Event', data: 20, color: '#0073b7' },
+        { label: 'Room', data: 50, color: '#00c0ef' }
+      ]
+      $.plot('#donut-chart', donutData, {
+        series: {
+          pie: {
+            show: true,
+            radius: 1,
+            innerRadius: 0.5,
+            label: {
+              show: true,
+              radius: 2 / 3,
+              formatter: labelFormatter,
+              threshold: 0.1
+            }
+
+          }
+        },
+        legend: {
+          show: false
+        }
+      })
+      /*
+       * END DONUT CHART
+       */
+
     })
+
+    /*
+     * Custom Label formatter
+     * ----------------------
+     */
+    function labelFormatter(label, series) {
+      return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
+        + label
+        + '<br>'
+        + Math.round(series.percent) + '%</div>'
+    }
   </script>
 </body>
 

@@ -11,6 +11,10 @@ var roomSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "RoomDetail"
     }],
+    Comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    }],
     Image: [{
         url: String,
     }]
