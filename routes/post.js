@@ -88,7 +88,7 @@ router.get("/rooms/:name", function(req, res) {
         if (roomfromDB == null) {
           res.redirect("/404");
         } else {
-          res.get({
+          res.json({
             room: roomfromDB,
             user: req.user,
             info: { message: "Normal" }
@@ -124,7 +124,7 @@ router.post("/rooms/:name", isLoggedin, function(req, res) {
 router.get("/book", findRoom, isLoggedin, function(req, res) {
   req.session.bookInfo = req.query;
   {
-    res.get({
+    res.json({
       bookInfo: req.query,
       roomInfo: req.session.RoomInfo,
       userInfo: req.user
@@ -179,7 +179,7 @@ router.post("/message", function(req, res) {
 });
 //view user profile
 router.get("/profile", isLoggedin, function(req, res) {
-  res.get({ Data: req.user });
+  res.json({ Data: req.user });
 });
 
 //check login when enter the "new" route
