@@ -41,8 +41,6 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 //
 app.use(express.static("public"));
 //
-app.set("view engine", "ejs");
-//
 
 app.use(require("express-session")({
     secret: "Liton nhan hieu tra so mot the thegioi",
