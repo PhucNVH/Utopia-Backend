@@ -5,59 +5,22 @@
 //   /_/   \_\  \__,_|  \__| |_| |_|   |_| \_\  \___/   \__,_|  \__|  \___| |___/
 //
 
-var express = require("express");
-var passport = require("passport");
-var user = require("../models/user");
-var ctrl = require("../controllers/user.controller");
-
-var router = express.Router();
+let express = require("express");
+let passport = require("passport");
+let ctrl = require("../controllers/user.controller");
+let guard = require("../guards/guards");
+let router = express.Router();
 // LOGIN AND SIGNUP SITE
-router.post("/test", ctrl.registerLocal);
+router.post("/test", guard.isLoggedin);
 router.post(
   "/login",
-  isNotLoggedIn,
+  guard.isNotLoggedin,
   passport.authenticate("local", {
     failureRedirect: "/login"
   }),
-  function(req, res) {
-    res.json({ message: "login success" });
-  }
+  ctrl.loginSuccess
 );
-router.post("/signup", isNotLoggedIn, function(req, res) {
-  var newUser = new user({
-    username: req.body.username,
-    FirstName: req.body.FirstName,
-    LastName: req.body.LastName
-  });
-  user.register(newUser, req.body.password, function(err, user) {
-    if (err) {
-      res.json({ error: err });
-    } else {
-      passport.authenticate("local")(req, res, function() {
-        res.redirect("/rooms");
-      });
-    }
-  });
-});
-router.get("/logout", function(req, res) {
-  req.logout();
-  req.session.destroy();
-  res.json({ message: "log out success" });
-});
+router.post("/signup", guard.isNotLoggedin, ctrl.registerLocal);
+router.post("/logout", ctrl.logout);
 
-//Authentication
-function isLoggedin(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.redirect("/login");
-  }
-}
-function isNotLoggedIn(req, res, next) {
-  if (!req.isAuthenticated()) {
-    return next();
-  } else {
-    res.redirect("/");
-  }
-}
 module.exports = router;
