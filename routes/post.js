@@ -5,34 +5,34 @@
 //   |_|      \___/  |___/  \__|   |_| \_\  \___/   \__,_|  \__|  \___| |___/
 //
 
-var express = require("express");
-var room = require("../models/room");
-var roomDetail = require("../models/roomdetail");
-var ReserveInfo = require("../models/ReserveInfo");
-var Message = require("../models/message");
+const express = require("express");
+const room = require("../models/room");
+const roomDetail = require("../models/roomdetail");
+const ReserveInfo = require("../models/ReserveInfo");
+const Message = require("../models/message");
+const billInfo = require("../models/bill");
+const post = require("../models/post");
+const Comment = require("../models/comment");
 
-var billInfo = require("../models/bill");
-var post = require("../models/post");
-var Comment = require("../models/comment");
-var router = express.Router();
+const router = express.Router();
 
-//add a new post
+// add a new post
 
-// View All Post
-router.get("/explore", function(req, res) {
-  post.find({}, function(err, PostfromDB) {
+// view All Post
+router.get("/explore", (req, res) => {
+  post.find({}, (err, PostfromDB) => {
     if (err) console.log(err);
     else {
       res.json({ posts: PostfromDB });
     }
   });
 });
-//view a specific post
-router.get("/explore/:post", function(req, res) {
+// view a specific post
+router.get("/explore/:post", (req, res) => {
   post
     .findById(req.params.post)
     .populate("Comments")
-    .exec(function(err, foundPost) {
+    .exec((err, foundPost) => {
       if (err) {
         console.log(err);
       } else {
@@ -40,48 +40,50 @@ router.get("/explore/:post", function(req, res) {
       }
     });
 });
-//add comment in a post
-router.post("/explore/:post", isLoggedin, function(req, res) {
-  post.findById(req.params.post, function(err, foundPost) {
+// add comment in a post
+router.post("/explore/:post", isLoggedin, (req, res) => {
+  post.findById(req.params.post, (err, foundPost) => {
     if (err) {
       console.log(err);
     } else {
-      var newComment = {
+      const newComment = {
         Author: req.body.Author,
         Body: req.body.Body
       };
-      //console.log(req.body);
-      Comment.create(newComment, function(err, comment) {
+      // console.log(req.body);
+      Comment.create(newComment, (err, comment) => {
         if (err) {
           console.log(err);
         } else {
+          newComment = comment;
           comment.Author.id = req.user._id;
           comment.Author.username = req.user.username;
           comment.save();
           foundPost.Comments.push(comment);
           foundPost.save();
-          res.redirect("/explore/" + req.params.post);
+          res.redirect("/explore/".concat(req.params.post));
         }
       });
     }
   });
 });
 
-//View All Room
-router.get("/rooms", function(req, res) {
-  room.find({}, function(err, roomsFromDB) {
+// view All Room
+router.get("/rooms", (req, res) => {
+  room.find({}, (err, roomsFromDB) => {
     if (err) console.log(err);
     else {
       res.json({ rooms: roomsFromDB });
     }
   });
 });
-//View A specific room
-router.get("/rooms/:name", function(req, res) {
+
+// view A specific room
+router.get("/rooms/:name", (req, res) => {
   room
     .findOne({ Name: req.params.name })
     .populate("Comments")
-    .exec(function(err, roomfromDB) {
+    .exec((err, roomfromDB) => {
       if (err) {
         console.log(err);
       } else {
@@ -182,7 +184,7 @@ router.get("/profile", isLoggedin, function(req, res) {
   res.json({ Data: req.user });
 });
 
-//check login when enter the "new" route
+//check login when enter the 'new' route
 function isLoggedin(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -220,7 +222,7 @@ function findRoom(req, res, next) {
         }
       })
       .exec(function(err, Room) {
-        if (err) console(err);
+        if (err) console.error(err);
         var counter = 0;
         for (var i = 0; i < Room.Detail.length; i++) {
           if (Room.Detail[i].Reserve.length == 0) {
@@ -240,5 +242,9 @@ function findRoom(req, res, next) {
         }
       });
   }
+}
+
+function mef() {
+  //this is cmgt
 }
 module.exports = router;

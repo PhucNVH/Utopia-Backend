@@ -6,38 +6,36 @@
 //                     |___/
 
 //include package
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var request = require("request");
-var mongoose = require("mongoose");
-var passport = require("passport");
-var localStrategy = require("passport-local");
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const request = require("request");
+const mongoose = require("mongoose");
+const passport = require("passport");
+const localStrategy = require("passport-local");
 //routes
-var AuthenticationRoutes = require("./routes/auth");
-var PrimaryRoutes = require("./routes/primary");
-var PostRoutes = require("./routes/post");
-DashboardRoutes = require("./routes/dashboard");
+const AuthenticationRoutes = require("./routes/auth");
+const PrimaryRoutes = require("./routes/primary");
+const PostRoutes = require("./routes/post");
 
 //mongoDB schema
-var bill = require("./models/bill");
-var room = require("./models/room");
-var post = require("./models/post");
-var user = require("./models/user");
-var Comment = require("./models/comment");
-var seedDB = require("./seedDB/seed");
-var RoomDB = require("./seedDB/room");
-var seedRoom = require("./seedDB/seedRoom");
-var seedReserve = require("./seedDB/seedReserve");
+const bill = require("./models/bill");
+const room = require("./models/room");
+const post = require("./models/post");
+const user = require("./models/user");
+const comment = require("./models/comment");
+const seedDB = require("./seedDB/seed");
+const roomDB = require("./seedDB/room");
+const seedRoom = require("./seedDB/seedRoom");
+const seedReserve = require("./seedDB/seedReserve");
 mongoose.connect(
   "mongodb+srv://PhucNVH:1@nvhp46-luffx.mongodb.net/Magneton?retryWrites=true",
   { useNewUrlParser: true }
 );
 //seedRoom();
 //seedDB();
-//RoomDB();
+//roomDB();
 //seedReserve();
-var bodyParser = require("body-parser");
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 //
@@ -65,11 +63,13 @@ app.use(function(req, res, next) {
 
 app.use(AuthenticationRoutes);
 app.use(PostRoutes);
-app.use(DashboardRoutes);
 app.use(PrimaryRoutes);
 
-app.listen(process.env.PORT || 3000 || 80, process.env.IP, function() {
+app.listen(process.env.PORT || 3000, process.env.IP, function() {
   console.log(
-    "hotel now online at " + process.env.PORT + " and " + process.env.IP
+    "hotel now online at " +
+      (process.env.PORT || 3000) +
+      " and " +
+      process.env.IP
   );
 });

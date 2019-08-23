@@ -2,14 +2,16 @@
   "name": "myweb",
   "version": "1.0.0",
   "description": "package for myweb",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
+    "start": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "eslint-config-airbnb": "^18.0.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "mongoose": "^5.4.19",
@@ -17,5 +19,11 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.1",
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.2.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "tslint-config-airbnb": "^5.11.1"
   }
 }
