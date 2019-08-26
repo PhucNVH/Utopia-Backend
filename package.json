@@ -1,17 +1,16 @@
 {
   "name": "myweb",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "package for myweb",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' index.ts",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "eslint-config-airbnb": "^18.0.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "mongoose": "^5.4.19",
@@ -22,8 +21,13 @@
   },
   "devDependencies": {
     "eslint": "^6.2.1",
-    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.18.2",
+    "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-import": "^2.18.2",
-    "tslint-config-airbnb": "^5.11.1"
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-jsx-a11y": "^6.2.3"
   }
 }
